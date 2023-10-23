@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {
   FlatList,
@@ -5,7 +6,10 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
+import {Nav} from '../types/routes';
 
 type Data = {
   id: string;
@@ -30,6 +34,12 @@ const data = [
 ];
 
 const NavOptions = () => {
+  const navigation = useNavigation<Nav>();
+
+  const handleOnPress = (screen: string) => {
+    navigation.navigate(screen);
+  };
+
   return (
     <FlatList
       data={data}
@@ -37,14 +47,21 @@ const NavOptions = () => {
       keyExtractor={(item: Data) => item.id}
       renderItem={({item}) => {
         return (
-          <TouchableOpacity className=" items-center justify-between w-40 h-40 m-2 bg-gray-100">
-            <Image
-              source={item.image}
-              style={{width: 120, height: 120, resizeMode: 'contain'}}
-            />
-            <Text className="w-full text-xl font-bold mb-2 px-4">
-              {item.title}
-            </Text>
+          <TouchableOpacity
+            onPress={() => handleOnPress(item.screen)}
+            className="flex w-40 h-fit m-2 bg-gray-100">
+            <View className="items-center">
+              <Image
+                source={item.image}
+                style={{width: 120, height: 120, resizeMode: 'contain'}}
+              />
+              <Text className="w-full text-lg font-bold mb-2 px-4">
+                {item.title}
+              </Text>
+            </View>
+            <View className="mx-2 mb-2 flex items-center justify-center bg-black w-10 rounded-full h-10">
+              <Icon name="arrowright" size={30} color="white" />
+            </View>
           </TouchableOpacity>
         );
       }}
