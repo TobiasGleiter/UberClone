@@ -9,6 +9,8 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {useSelector} from 'react-redux';
+import {selectOrigin} from '../slices/navSlices';
 import {Nav} from '../types/routes';
 
 type Data = {
@@ -35,6 +37,7 @@ const data = [
 
 const NavOptions = () => {
   const navigation = useNavigation<Nav>();
+  const origin = useSelector(selectOrigin);
 
   const handleOnPress = (screen: string) => {
     navigation.navigate(screen);
@@ -49,7 +52,10 @@ const NavOptions = () => {
         return (
           <TouchableOpacity
             onPress={() => handleOnPress(item.screen)}
-            className="flex w-40 h-fit m-2 bg-gray-100">
+            className={`flex w-40 h-fit m-2 bg-gray-100 ${
+              !origin && 'opacity-20'
+            }`}
+            disabled={!origin}>
             <View className="items-center">
               <Image
                 source={item.image}

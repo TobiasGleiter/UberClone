@@ -37,8 +37,8 @@ export const {setOrigin, setDestination, setTravelTimeInformation} =
   navSlicer.actions;
 
 //Selectors
-export const selectorigin = (state: State) => state.nav.origin;
-export const selectestination = (state: State) => state.nav.destination;
+export const selectOrigin = (state: State) => state.nav.origin;
+export const selectDestination = (state: State) => state.nav.destination;
 export const selectTravelTimeInformation = (state: State) =>
   state.nav.travelTimeInformation;
 
